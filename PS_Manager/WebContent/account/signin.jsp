@@ -17,7 +17,7 @@
 			<!-- 점보트론 -->
 			<div class="jumbotron" style="padding-top: 20px;">
 				<form method="post" action="/psManager/account_servlet/signin.do">
-					<h3 style="text-align: center">회원가입</h3>
+					<h3 style="text-align: center">로그인</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="아이디"
 							name="userid" maxlength="20">
@@ -42,7 +42,7 @@
 			</div>
 
 		</div>
-		</div>
-		<br> ${param.message }
+	</div>
+	<br> ${param.message }
 </body>
 </html>

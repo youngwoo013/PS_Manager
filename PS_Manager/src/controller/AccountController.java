@@ -37,7 +37,7 @@ public class AccountController extends HttpServlet {
 
 			} else {
 				message = name + "님 환영합니다.";
-				page = "/psManager/account/signin_result.jsp";
+				page = "/psManager/my_schedule/my_schedule.jsp";
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", userid);
 				session.setAttribute("message", message);

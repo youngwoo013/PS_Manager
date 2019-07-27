@@ -11,15 +11,13 @@
 <%@  include file="/include/session_check.jsp"%>
 <body>
 	<!-- nav -->
-	<jsp:include page="/include/nav.jsp" />
+	<jsp:include page="/include/nav_login.jsp" />
 
 	<div class="container">
 		${sessionScope.message } <br> 접속중인 아이디 : ${sessionScope.userid }<br>
-		
+
 		<a href="/psManager/account_servlet/signout.do">로그아웃</a>
 	</div>
-
-
 
 
 	<script

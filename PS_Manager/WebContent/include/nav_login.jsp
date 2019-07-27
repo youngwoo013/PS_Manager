@@ -35,6 +35,15 @@
 				<li><a href="bbs.jsp">프로젝트</a></li>
 				<li><a href="chat.jsp">채팅</a>
 			</ul>
+
+			<div class="nav navbar-nav navbar-right">
+
+				<span class="navbar-text">${sessionScope.userid } 님 환영합니다</span> <a
+					class="navbar-text" href="/psManager/account_servlet/signout.do">로그아웃</a>
+
+			</div>
+
+
 		</div>
 	</nav>
 </body>
