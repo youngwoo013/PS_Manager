@@ -11,6 +11,7 @@
 <body>
 	<!-- nav -->
 	<jsp:include page="/include/nav.jsp" />
+
 	<div class="container">
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">
@@ -42,7 +43,13 @@
 			</div>
 
 		</div>
+		<br> ${param.message }
 	</div>
-	<br> ${param.message }
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script src="../Resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>
