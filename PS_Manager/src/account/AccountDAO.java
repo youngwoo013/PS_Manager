@@ -12,7 +12,7 @@ public class AccountDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = new DB().dbConn();
+			conn = DB.dbConn();
 			String sql = "select * from account where userid = ? and passwd = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
@@ -44,7 +44,7 @@ public class AccountDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = new DB().dbConn();
+			conn = DB.dbConn();
 			String sql = "insert into account values (?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getUserid());
