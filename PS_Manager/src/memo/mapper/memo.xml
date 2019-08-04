@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memo">
+	<select id="list" resultType="memo.dto.MemoDTO">
+		select * from memo
+		order by idx desc
+	</select>
+	<select id="view" resultType="memo.dto.MemoDTO">
+		select * from memo where idx=#{idx}
+	</select>
+	
+	<update id="update" parameterType="memo.dto.MemoDTO">
+		update memo set writer=#{writer}, memo=#{memo} where idx=#{idx}
+	
+	</update>
+	<delete id="delete">
+		delete from memo where idx=#{idx}
+	
+	</delete>
+	<insert id="insert" parameterType="memo.dto.MemoDTO">
+		insert into memo(idx, writer, memo) values ((select nvl(max(idx)+1,1) from memo), #{writer}, #{memo})
+	</insert>
+
+</mapper>
