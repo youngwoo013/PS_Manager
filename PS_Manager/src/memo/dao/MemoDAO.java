@@ -13,8 +13,6 @@ public class MemoDAO {
 		List<MemoDTO> list=session.selectList("memo.list");
 		session.close();
 		return list;
-		
-		
 	}
 	public void updateMemo(MemoDTO dto) {
 		SqlSession session=MybatisManager.getInstance().openSession();
