@@ -27,7 +27,7 @@
 			<li><a href="main.jsp">메인</a></li>
 			<li><a href="bbs.jsp">한줄 메모장</a></li>
 			<li><a href="bbs.jsp">프로젝트</a></li>
-			<li><a href="chat.jsp">채팅</a>
+			<li><a href="/psManager/chatting/chatroom.jsp">채팅</a>
 		</ul>
 
 		<div class="nav navbar-nav navbar-right">
