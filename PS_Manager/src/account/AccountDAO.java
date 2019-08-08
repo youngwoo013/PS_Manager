@@ -54,7 +54,7 @@ public class AccountDAO {
 			pstmt.setString(5, dto.getEmail());
 			pstmt.setInt(6, dto.getBirth());
 			int r = pstmt.executeUpdate();
-			System.out.println("생성된 row의 개수 : " + r);
+			System.out.println("account 생성된 row의 개수 : " + r);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -6,7 +6,7 @@
 %>
 <script>
 	alert("먼저 로그인을 해주세요.");
-	location.href = "signin.jsp";
+	location.href = "/psManager/account/signin.jsp";
 	
 </script>
 <%
