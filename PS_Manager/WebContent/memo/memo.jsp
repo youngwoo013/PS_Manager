@@ -22,7 +22,7 @@ function insert(){
 	var param="writer="+writer+"&memo="+memo;
 	$.ajax({
 		type: "post",
-		url:"/memo_servlet/insert.do",
+		url:"../memo_servlet/insert.do",
 		data: param,
 		success: function(){
 			list();
@@ -34,7 +34,7 @@ function insert(){
 
 function list(){
 	$.ajax({
-		url:"/memo_servlet/list.do",
+		url:"../memo_servlet/list.do",
 		success: function(result){
 			$("#result").html(result);
 		}

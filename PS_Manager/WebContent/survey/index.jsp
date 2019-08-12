@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-response.sendRedirect("/survey_servlet/input.do");
+response.sendRedirect("../survey_servlet/input.do");
 
 %>
 </body>

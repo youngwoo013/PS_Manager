@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body>g
 <h2>설문조사 결과</h2>
 <table border="1">
 	<tr align="center">
@@ -25,7 +25,7 @@
 	</tr>
 </c:forEach>
 </table>
-<a href="/survey_servlet/input.do">설문 메인화면</a>
+<a href="../survey_servlet/input.do">설문 메인화면</a>
 
 </body>
 </html>
