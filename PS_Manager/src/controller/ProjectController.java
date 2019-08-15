@@ -45,13 +45,17 @@ public class ProjectController extends HttpServlet {
 				out.print(res);
 			}
 		} else if (url.contains("showPjt.do")){ // 프로젝트 보여주기
-
+			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 			PjtInfo_DAO dao = new PjtInfo_DAO();
 			PrintWriter out = response.getWriter();
 			String userid = request.getParameter("userid");
 			String pjt_res = dao.showPjt(userid);
 			
 			out.print(pjt_res);
+		} else if (url.contains("addCoworker.do")) {
+			
 		}
 
 	}

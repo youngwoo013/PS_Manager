@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 
 <!DOCTYPE html>
 <html>
@@ -49,47 +50,33 @@
 				} else {
 					alert('일정을 입력하세요');
 				}
-			},
-
-			customButtons : {
-				addEventBtn : {
-					text : '일정 추가',
-					click : function() {
-						var dateStr = prompt('날짜 입력 YYYY-MM-DD');
-						var date = moment(dateStr);
-
-						if (date.isValid()) {
-							calendar.fullCalendar('renderEvent', {
-								title : 'Dynamic event',
-								start : date,
-								allDay : true
-							});
-						} else {
-							alert('Invalid Date');
-						}
-					}
-				}
 			}
-
 		});
 
 		calendar.render();
 	});
 	
 	$(document).ready(function() { //문서가 불러오면 실행됨
+		
 		$.ajax({
 			type:"GET",
 			url:"../project_servlet/showPjt.do",
 			data : {
 				userid : "<%=session.getAttribute("userid")%>"
 			},
+// 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(res){
-				console.log($(res).find('pjtList'));
+				console.log(res);
+				var pnum = "";
+				var pname = "";
+				$("#pjt_list").empty();
 				$(res).find('pjtInfo').each(function(){
-	                var pnum = $(this).find('pnum').text();
-	                var pname = $(this).find('pname').text();
-	                console.log(pnum + pname);
-	                $('#pjt_list').append("<li class='list-group-item'><a href='#'>"+pname+"</a></li>");
+					
+	                pnum = $(this).find('pnum').text();
+	                pname = $(this).find('pname').text();
+	                console.log(pname);
+	                
+	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp'>"+pname+"</a></li>");
 	                });
                  
            } , 
@@ -109,7 +96,6 @@
 	display: none;
 }
 </style>
-
 
 
 <title>Welcome - PSM</title>
@@ -246,37 +232,12 @@
 
 			<div id="calendar" style="width: 90%"></div>
 
-
-			<div class="modal fade" id="calendarModal" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title" class="modalTitle">일정 추가</h4>
-						</div>
-
-						<div class="modal-body">아어ㅏㄹ</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">닫기</button>
-							<button type="submit" id="submit_pjt_info"
-								class="btn btn-primary">생성</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
 		</div>
 	</div>
-	<script src="../Resources/js/bootstrap.min.js"></script>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../Resources/js/bootstrap.min.js"></script>
 
 
 </body>
