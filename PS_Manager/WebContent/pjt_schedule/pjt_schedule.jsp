@@ -5,102 +5,45 @@
 <html>
 <head>
 
-<!-- header -->
-<jsp:include page="/include/header.jsp" />
-
 <!-- fullcalendar -->
 <link href='../Resources/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='../Resources/fullcalendar/daygrid/main.css' rel='stylesheet' />
-<link href='../Resources/fullcalendar/timegrid/main.css' rel='stylesheet' />
-<link href='../Resources/fullcalendar/timeline/main.css' rel='stylesheet' />
-<link href='../Resources/fullcalendar/resource-timeline/main.css' rel='stylesheet' />
-<script src='../Resources/fullcalendar/core/main.js'></script>
-<script src='../Resources/fullcalendar/interaction/main.js'></script>
-<script src='../Resources/fullcalendar/daygrid/main.js'></script>
-<script src='../Resources/fullcalendar/timegrid/main.js'></script>
-<script src='../Resources/fullcalendar/timeline/main.js'></script>
-<script src='../Resources/fullcalendar/resource-common/main.js'></script>
-<script src='../Resources/fullcalendar/resource-timeline/main.js'></script>
 
 <script type="text/javascript">
-
-	//fullcalendar
+	// fullcalendar
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
-			plugins : [ 'interaction', 'dayGrid' ],
-			
-			header: {
-				left : 'prev,next today',
-				center: 'title',
-				right: 'addEventBtn'
-			},
-			defaultView: 'dayGridMonth',
-			selectable: true,
-			
-			dateClick: function(info) {
-				var schedule = prompt(info.dateStr +'의 일정을 입력하세요');
-				
-				if(schedule){
-					 calendar.addEvent({
-						title : schedule,
-						start : info.dateStr
-					});
-				} else {
-					alert('일정을 입력하세요');
-				}
-			},
-
-			customButtons : {
-				addEventBtn : {
-					text : '일정 추가',
-					click : function() {
-						var dateStr = prompt('날짜 입력 YYYY-MM-DD');
-						var date = moment(dateStr);
-
-						if (date.isValid()) {
-							calendar.fullCalendar('renderEvent', {
-								title : 'Dynamic event',
-								start : date,
-								allDay : true
-							});
-						} else {
-							alert('Invalid Date');
-						}
-					}
-				}
-			}
-
+			plugins : [ 'dayGrid' ]
 		});
 
 		calendar.render();
 	});
 	
-	$(document).ready(function() { //문서가 불러오면 실행됨
+	//showpjt
+	function showPjt(){
 		$.ajax({
-			type:"GET",
-			url:"../project_servlet/showPjt.do",
+			type: "GET",
+			url: "../project_servlet/showPjt.do",
 			data : {
-				userid : "<%=session.getAttribute("userid")%>"
+				chatName : chatName,
+				chatContent : chatContent
 			},
-			success : function(res){
-				console.log($(res).find('pjtList'));
-				$(res).find('pjtInfo').each(function(){
-	                var pnum = $(this).find('pnum').text();
-	                var pname = $(this).find('pname').text();
-	                console.log(pnum + pname);
-	                $('#pjt_list').append("<li class='list-group-item'><a href='#'>"+pname+"</a></li>");
-	                });
-                 
-           } , 
-           error : function(){ 
-                        alert('프로젝트 로드에 실패했습니다.'); 
-            }
-
-
-			});
-	});
+			success : function(result){
+				
+			}
+		});
+	}	
 </script>
+
+<!-- header -->
+<jsp:include page="/include/header.jsp" />
+
+<title>Welcome - PSM</title>
+
+</head>
+
+<%@  include file="/include/session_check.jsp"%>
 
 <!-- modal입력 받게 백그라운드 처리 -->
 <style type="text/css">
@@ -109,14 +52,6 @@
 	display: none;
 }
 </style>
-
-
-
-<title>Welcome - PSM</title>
-
-</head>
-
-<%@  include file="/include/session_check.jsp"%>
 
 <body>
 
@@ -130,23 +65,21 @@
 				<h4>프로젝트 목록</h4>
 			</div>
 		</div>
-		<ul class="list-group"  id="pjt_list">
-
-			<!-- 프로젝트 보여주는 곳 -->
-
+		<ul class="list-group">
+			<li class="list-group-item"><a href="#">~~</a></li>
 		</ul>
 	</div>
 	<div class="col-md-10">
 
 		<div class="container">
 
-			<!-- 프로젝트 생성 -->
+			<!-- 팀원 추가 -->
 			<!-- modal 구동 버튼(트리거) -->
 			<button type="button" class="btn btn-secondary" data-toggle="modal"
-				data-target="#create_pjt">프로젝트 생성</button>
+				data-target="#add_teamate">팀원 추가</button>
 
 			<!-- modal -->
-			<div class="modal fade" id="create_pjt" tabindex="-1" role="dialog"
+			<div class="modal fade" id="add_teamate" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -163,6 +96,10 @@
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="프로젝트 명"
 										id="pname" name="pname" maxlength="20">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="프로젝트 매니저"
+										id="pmanager" name="pmanager" maxlength="20">
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="프로젝트 설명"
@@ -184,31 +121,34 @@
 			<!-- 생성 버튼 누르면 정보 저장 후 modal 닫기 -->
 			<script type="text/javascript">
 				$(function() {
-					$('#submit_pjt_info').click(function(e) {
-						var pjt_info = {
-							pname : $('#pname').val(),
-							pmanager :  "<%=session.getAttribute("userid")%>",
-							pdescription : $('#pdescription').val()
-							};
-						$.ajax({
+					$('#submit_pjt_info').click(
+							function(e) {
+
+								var pjt_info = {
+									pname : $('#pname').val(),
+									pmanager : $('#pmanager').val(),
+									pdescription : $('#pdescription').val()
+								};
+								$.ajax({
 									type : "POST",
 									url : "../project_servlet/createPjt.do",
+									// 						datatype : "json",
 									data : pjt_info,
 									success : function(result) {
-										if (result == 0){
+										if (result == 0)
 											alert("필수항목을 기입해주세요");
-										}else{
-											alert($('#pname').val() + " 프로젝트가 생성되었습니다");
-	
-										}
+										else
+											alert($('#pname').val()
+													+ " 프로젝트가 생성되었습니다");
+
 									},
 									error : function(e) {
 										alert("문제가 발생했습니다");
-										}
-									});
-						e.preventDefault();
-						$('#create_pjt').modal('hide')
-						});
+									}
+								});
+								e.preventDefault();
+								$('#create_pjt').modal('hide')
+							});
 				});
 			</script>
 
@@ -232,6 +172,12 @@
 
 						<div class="modal-body">
 							<!-- 프로젝트 목록 보여주기 -->
+							<script>
+								$(document).ready(function() { //문서가 불러오면 실행됨
+									chatListFunction('ten'); //최근 10개만 불러온다
+									getInfiniteChat(); //1초마다 최신 채팅을 받아오는 함수 실행
+								});
+							</script>
 						</div>
 
 						<div class="modal-footer">
@@ -244,11 +190,15 @@
 				</div>
 			</div>
 
-			<div id="calendar" style="width: 90%"></div>
+			<!-- 팀원 추가 -->
 
+			<!-- modal 구동 버튼(트리거) -->
+			<button type="button" class="btn btn-secondary" data-toggle="modal"
+				data-target="#add_coworker">팀원 추가</button>
 
-			<div class="modal fade" id="calendarModal" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel">
+			<!-- modal -->
+			<div class="modal fade" id="add_coworker" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -256,28 +206,67 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" class="modalTitle">일정 추가</h4>
+							<h4 class="modal-title">팀원 추가</h4>
+							<button type="button" id="add_input" class="btn btn-default"
+								data-dismiss="modal">팀원 추가</button>
 						</div>
 
-						<div class="modal-body">아어ㅏㄹ</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group" id="div_input">
+									<input type="text" class="form-control" placeholder="팀원 아이디"
+										id="team" name="pname" maxlength="20">
+								</div>
+							</form>
 
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">닫기</button>
-							<button type="submit" id="submit_pjt_info"
-								class="btn btn-primary">생성</button>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">닫기</button>
+								<button type="submit" id="submit_pjt_info"
+									class="btn btn-primary">저장</button>
+							</div>
 						</div>
 					</div>
 				</div>
+
+				<script>
+					//추가 버튼
+					$(document)
+							.on(
+									"click",
+									"button[id=add_input]",
+									function() {
+
+										var addCoworker = '<div class="form-group" id="div_input">'
+												+ '<input type="text" class="form-control" placeholder="팀원 아이디"'
+												+'id="team" name="pname" maxlength="20"></div>';
+
+										var divHtml = $("div[id=div_input]:last"); //last를 사용하여 div_input라는 명을 가진 마지막 태그 호출
+
+										divHtml.after(addCoworker); //마지막 divHtml명 뒤에 붙인다.
+
+									});
+
+					//삭제 버튼
+					$(document).on("click", "button[name=delStaff]",
+							function() {
+
+								var trHtml = $(this).parent().parent();
+
+								trHtml.remove(); //tr 테그 삭제
+
+							});
+				</script>
+
+				<div id="calendar" style="width: 90%"></div>
+
 			</div>
-
-
 		</div>
 	</div>
-	<script src="../Resources/js/bootstrap.min.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
+	<script src="../Resources/js/bootstrap.min.js"></script>
+	<script src='../Resources/fullcalendar/core/main.js'></script>
+	<script src='../Resources/fullcalendar/daygrid/main.js'></script>
 </body>
 </html>

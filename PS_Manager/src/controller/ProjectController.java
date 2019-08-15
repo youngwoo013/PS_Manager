@@ -30,9 +30,9 @@ public class ProjectController extends HttpServlet {
 			String pdescription = request.getParameter("pdescription");
 			PrintWriter out = response.getWriter();
 			int res = 0;
-			
+
 			// 입력값 없을 때
-			if (pname == "" || pmanager == "") {
+			if (pname == "") {
 				System.out.println("필수항목 기입 X");
 				out.print(res);
 			} else {
@@ -44,6 +44,14 @@ public class ProjectController extends HttpServlet {
 				// pname을 클라이언트에 반환
 				out.print(res);
 			}
+		} else if (url.contains("showPjt.do")){ // 프로젝트 보여주기
+
+			PjtInfo_DAO dao = new PjtInfo_DAO();
+			PrintWriter out = response.getWriter();
+			String userid = request.getParameter("userid");
+			String pjt_res = dao.showPjt(userid);
+			
+			out.print(pjt_res);
 		}
 
 	}
