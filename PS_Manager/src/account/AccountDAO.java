@@ -70,5 +70,40 @@ public class AccountDAO {
 			}
 		}
 	}
+	public boolean validateID(String userid) {
+		String name = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean exist = false;
+		try {
+			conn = DB.dbConn();
+			String sql = "select userid from account where userid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				name = rs.getString(1);
+			}
+			if(name != null) exist = true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (rs != null)
+					rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}
+		}
+		return exist;
+	}
+	
 
 }

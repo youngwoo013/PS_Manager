@@ -21,7 +21,6 @@ public class AccountController extends HttpServlet {
 			throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		request.setCharacterEncoding("utf-8");
-		System.out.println("url = " + url);
 		if (url.contains("signin.do")) { // 로그인 시도
 			String userid = request.getParameter("userid");
 			String passwd = request.getParameter("passwd");
@@ -55,16 +54,25 @@ public class AccountController extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String phonenum = request.getParameter("phonenum");
-			int birth = Integer.parseInt(request.getParameter("birth"));
+			String birth = request.getParameter("birth");
+			
 			dto.setUserid(userid);
 			dto.setPasswd(passwd);
 			dto.setName(name);
 			dto.setEmail(email);
 			dto.setPhonenum(phonenum);
-			dto.setBirth(birth);
+			dto.setBirth(Integer.parseInt(birth));
 			new AccountDAO().insertAccount(dto);
 			String message = "회원가입에 성공하였습니다. 다시 로그인해주세요.";
-			response.sendRedirect("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
+			response.getWriter().write("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
+		} else if (url.contains("validateID.do")) {
+			String userid = request.getParameter("userid");
+			boolean exist = new AccountDAO().validateID(userid);
+			if(exist == false) {
+				response.getWriter().write("1");
+			}else {
+				response.getWriter().write("0");
+			}
 		}
 
 	}
