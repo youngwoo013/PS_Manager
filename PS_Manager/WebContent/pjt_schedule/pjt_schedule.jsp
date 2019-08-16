@@ -47,6 +47,26 @@
 						title : schedule,
 						start : info.dateStr
 					});
+					
+					$.ajax({
+						type : "POST",
+						url : "../schedule_servlet/add_pjtSchedule.do",
+						data : {
+							userid : "<%=session.getAttribute("userid")%>",
+							pnum : ${param.pnum},
+							des : schedule,
+							sday : info.dateStr,
+							eday : info.dateStr
+						},
+						sucess : function(res) {
+							console.log(res)
+						},
+						error : function() {
+							alert("일정을 추가하는 데 문제가 발생했습니다")
+						}
+					
+					});
+					
 				} else {
 					alert('일정을 입력하세요');
 				}
@@ -55,7 +75,8 @@
 
 		calendar.render();
 	});
-
+	
+	// 프로젝트 보여줌
 	$(document).ready(function() { //문서가 불러오면 실행됨
 		$.ajax({
 			type : "GET",
@@ -72,9 +93,10 @@
 					
 	                pnum = $(this).find('pnum').text();
 	                pname = $(this).find('pname').text();
-	                console.log(pname);
+	                console.log(pnum);
 	                
-	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp'>"+pname+"</a></li>");
+	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp?pnum="
+	                		+ pnum +"'>" +pname+"</a></li>");
 	                });
 				} , 
 				error : function(){
@@ -82,6 +104,8 @@
 	            }
 			});
 	});
+	
+	
 </script>
 
 

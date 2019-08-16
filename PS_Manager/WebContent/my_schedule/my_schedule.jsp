@@ -73,10 +73,12 @@
 				$(res).find('pjtInfo').each(function(){
 					
 	                pnum = $(this).find('pnum').text();
+	                console.log(pnum);
 	                pname = $(this).find('pname').text();
 	                console.log(pname);
 	                
-	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp'>"+pname+"</a></li>");
+	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp?pnum="
+	                		+ pnum +"'>" +pname+"</a></li>");
 	                });
                  
            } , 

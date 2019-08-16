@@ -7,7 +7,6 @@ public class PjtInfo_DTO {
 
 	public PjtInfo_DTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public PjtInfo_DTO(String pname, String pmanager, String pdescription) {
