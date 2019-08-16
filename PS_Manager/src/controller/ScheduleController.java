@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import schedule.my_scheduleDAO;
+import schedule.my_scheduleDTO;
 import schedule.pjt_scheduleDAO;
 import schedule.pjt_scheduleDTO;
 
@@ -28,14 +30,14 @@ public class ScheduleController extends HttpServlet {
 			pjt_scheduleDTO dto = new pjt_scheduleDTO();
 			String pname = request.getParameter("userid");
 			String pnum = request.getParameter("pnum");
-			String description = request.getParameter("des");
+			String description = request.getParameter("description");
 			String sday = request.getParameter("sday");
 			String eday = request.getParameter("eday");
 			PrintWriter out = response.getWriter();
 			int res = 0;
 			
 			dto.setPnum(pnum);
-			dto.setDes(description);
+			dto.setDescription(description);
 			dto.setSday(sday);
 			dto.setEday(eday);
 			
@@ -43,12 +45,27 @@ public class ScheduleController extends HttpServlet {
 			out.print(res);
 			
 			System.out.println(pname + description + sday);
+		} else if(url.contains("add_mySchedule.do")) {
+			my_scheduleDTO dto = new my_scheduleDTO();
+			String userid = request.getParameter("userid");
+			String description = request.getParameter("description");
+			String sday = request.getParameter("sday");
+			String eday = request.getParameter("eday");
+			PrintWriter out = response.getWriter();
+			int res = 0;
+			
+			dto.setUserid(userid);
+			dto.setDescription(description);
+			dto.setSday(sday);
+			dto.setEday(eday);
+			
+			res = new my_scheduleDAO().addMySchedule(dto);
+			out.print(res);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

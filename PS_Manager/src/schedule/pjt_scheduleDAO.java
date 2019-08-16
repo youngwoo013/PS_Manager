@@ -34,13 +34,13 @@ public class pjt_scheduleDAO {
 			pstmt.setString(1, dto.getPnum());
 			pstmt.setString(2, dto.getSday());
 			pstmt.setString(3, dto.getEday());
-			pstmt.setString(4, dto.getDes());
+			pstmt.setString(4, dto.getDescription());
 			
 			res = pstmt.executeUpdate();
 			System.out.println("pjt_schedule 생성된 row의 개수 : " + res);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return res;

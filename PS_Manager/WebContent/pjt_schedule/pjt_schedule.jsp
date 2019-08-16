@@ -40,6 +40,12 @@
 			selectable : true,
 
 			dateClick : function(info) {
+				var pnum = <%=request.getParameter("pnum")%>;
+				if(pnum===null){
+					alert("프로젝트를 선택해주세요");
+					return;
+				
+				}
 				var schedule = prompt(info.dateStr + '의 일정을 입력하세요');
 
 				if (schedule) {
@@ -47,14 +53,14 @@
 						title : schedule,
 						start : info.dateStr
 					});
-					
+					// 일정추가
 					$.ajax({
 						type : "POST",
 						url : "../schedule_servlet/add_pjtSchedule.do",
 						data : {
 							userid : "<%=session.getAttribute("userid")%>",
-							pnum : ${param.pnum},
-							des : schedule,
+							pnum : <%=request.getParameter("pnum")%>,
+							description : schedule,
 							sday : info.dateStr,
 							eday : info.dateStr
 						},
@@ -66,7 +72,6 @@
 						}
 					
 					});
-					
 				} else {
 					alert('일정을 입력하세요');
 				}

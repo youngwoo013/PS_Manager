@@ -1,29 +1,29 @@
 package schedule;
 
-
-public class pjt_scheduleDTO {
-	private String pnum;
+public class my_scheduleDTO {
+	private String userid;
 	private String sday;
 	private String eday;
 	private String description;
 	
-	public pjt_scheduleDTO() {
+	public my_scheduleDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-	public pjt_scheduleDTO(String pnum, String sday, String eday, String description) {
+	public my_scheduleDTO(String userid, String sday, String eday, String description) {
 		super();
-		this.pnum = pnum;
+		this.userid = userid;
 		this.sday = sday;
 		this.eday = eday;
 		this.description = description;
 	}
 	
-	public String getPnum() {
-		return pnum;
+	public String getUserid() {
+		return userid;
 	}
-	public void setPnum(String pnum) {
-		this.pnum = pnum;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	public String getSday() {
 		return sday;
@@ -46,7 +46,8 @@ public class pjt_scheduleDTO {
 	
 	@Override
 	public String toString() {
-		return "pjt_scheduleDTO [pnum=" + pnum + ", sday=" + sday + ", eday=" + eday + ", description=" + description + "]";
+		return "my_scheduleDTO [userid=" + userid + ", sday=" + sday + ", eday=" + eday + ", description=" + description
+				+ "]";
 	}
-
+	
 }

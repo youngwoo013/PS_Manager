@@ -39,14 +39,34 @@
 			defaultView: 'dayGridMonth',
 			selectable: true,
 			
-			dateClick: function(info) {
-				var schedule = prompt(info.dateStr +'의 일정을 입력하세요');
-				
-				if(schedule){
-					 calendar.addEvent({
+			dateClick : function(info) {
+				var schedule = prompt(info.dateStr + '의 일정을 입력하세요');
+
+				if (schedule) {
+					calendar.addEvent({
 						title : schedule,
 						start : info.dateStr
 					});
+					
+					//	일정추가
+					$.ajax({
+						type : "POST",
+						url : "../schedule_servlet/add_mySchedule.do",
+						data : {
+							userid : "<%=session.getAttribute("userid")%>",
+							description : schedule,
+							sday : info.dateStr,
+							eday : info.dateStr
+						},
+						sucess : function(res) {
+							console.log(res)
+						},
+						error : function() {
+							alert("일정을 추가하는 데 문제가 발생했습니다")
+						}
+					
+					});
+					
 				} else {
 					alert('일정을 입력하세요');
 				}
