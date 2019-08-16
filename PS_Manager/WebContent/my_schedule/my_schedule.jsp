@@ -24,11 +24,12 @@
 <script src='../Resources/fullcalendar/resource-timeline/main.js'></script>
 
 <script type="text/javascript">
-
+	var calendarEl = null;
+	var calendar = null;
 	//fullcalendar
 	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
+ 		var calendarEl = document.getElementById('calendar');
+		calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins : [ 'interaction', 'dayGrid' ],
 			
 			header: {
@@ -48,7 +49,7 @@
 						start : info.dateStr
 					});
 					
-					//	일정추가
+					// 개인 일정추가
 					$.ajax({
 						type : "POST",
 						url : "../schedule_servlet/add_mySchedule.do",
@@ -59,6 +60,7 @@
 							eday : info.dateStr
 						},
 						sucess : function(res) {
+							
 							console.log(res)
 						},
 						error : function() {
@@ -76,7 +78,8 @@
 		calendar.render();
 	});
 	
-	$(document).ready(function() { //문서가 불러오면 실행됨
+	//문서가 불러오면 실행됨
+	$(document).ready(function() { 
 		
 		$.ajax({
 			type:"GET",
@@ -86,16 +89,14 @@
 			},
 // 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(res){
-				console.log(res);
+				console.log("pjtInfo = " + res);
 				var pnum = "";
 				var pname = "";
 				$("#pjt_list").empty();
 				$(res).find('pjtInfo').each(function(){
 					
 	                pnum = $(this).find('pnum').text();
-	                console.log(pnum);
 	                pname = $(this).find('pname').text();
-	                console.log(pname);
 	                
 	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp?pnum="
 	                		+ pnum +"'>" +pname+"</a></li>");
@@ -103,11 +104,41 @@
                  
            } , 
            error : function(){ 
-                        alert('프로젝트 로드에 실패했습니다.'); 
-            }
-
-
-			});
+                        alert('프로젝트 로드에 실패했습니다'); 
+                   }
+           });
+		
+		$.ajax({
+			type : "GET",
+			url : "../schedule_servlet/show_Myschedule.do",
+			data : {
+				userid : "<%=session.getAttribute("userid")%>"
+			},
+			success : function(res) {
+				console.log("my_scheduleInfo = " + res);
+				var sday = "",
+					eday = "",
+					description = "";
+				$(res).find('scheduleInfo').each(function(){
+					
+	                sday = $(this).find('sday').text().replace(/\//g,"-");
+	                eday = $(this).find('eday').text().replace(/\//g,"-");
+	                description = $(this).find('description').text();
+	                
+	                calendar.addEvent({
+						title : description,
+						start : sday
+					});
+	               
+	                calendar.render();
+				});
+                 
+			},
+			error : function() {
+				alert("스케쥴을 불러오는 데 문제가 발생했습니다")
+			}
+			
+		});
 	});
 </script>
 

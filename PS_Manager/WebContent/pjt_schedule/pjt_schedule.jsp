@@ -87,10 +87,10 @@
 			type : "GET",
 			url : "../project_servlet/showPjt.do",
 			data : {
-				userid : '<%=session.getAttribute("userid")%>'
+				userid : "<%=session.getAttribute("userid")%>"
 				},
 			success : function(res){
-				console.log(res);
+				console.log("pjtInfo = " + res);
 				var pnum = "";
 				var pname = "";
 				$("#pjt_list").empty();

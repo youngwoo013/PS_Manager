@@ -55,7 +55,7 @@ public class PjtInfo_DAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String strXML = " ";
+		String strPjt = "";
 
 		try {
 			conn = DB.dbConn();
@@ -63,19 +63,18 @@ public class PjtInfo_DAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			rs = pstmt.executeQuery();
-			strXML += "<pjtList>";
+			strPjt += "<pjtList>";
 			String pnum = "";
 			String pname = "";
 			while (rs.next()) {
-				strXML += "<pjtInfo>";
-				System.out.println(rs.getString(2));
+				strPjt += "<pjtInfo>";
 				pnum = rs.getString(1);
 				pname = rs.getString(2);
-				strXML += "<pnum>" + pnum + "</pnum>";
-				strXML += "<pname>" + pname + "</pname>";
-				strXML += "</pjtInfo>";
+				strPjt += "<pnum>" + pnum + "</pnum>";
+				strPjt += "<pname>" + pname + "</pname>";
+				strPjt += "</pjtInfo>";
 			}
-			strXML += "</pjtList>";
+			strPjt += "</pjtList>";
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -90,6 +89,6 @@ public class PjtInfo_DAO {
 				e2.printStackTrace();
 			}
 		}
-		return strXML;
+		return strPjt;
 	}
 }

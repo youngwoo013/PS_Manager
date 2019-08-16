@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +60,18 @@ public class ScheduleController extends HttpServlet {
 			
 			res = new my_scheduleDAO().addMySchedule(dto);
 			out.print(res);
+		} else if(url.contains("show_Myschedule.do")) {
+			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			my_scheduleDAO dao = new my_scheduleDAO();
+			PrintWriter out = response.getWriter();
+			String userid = request.getParameter("userid");
+			String schedule_res = dao.showMychedule(userid);
+			
+			out.print(schedule_res);
+			
 		}
 	}
 
