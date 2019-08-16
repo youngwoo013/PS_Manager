@@ -83,12 +83,17 @@
 	
 	// 프로젝트 보여줌
 	$(document).ready(function() { //문서가 불러오면 실행됨
+		showPjt();
+	});
+	
+	function showPjt(){
 		$.ajax({
-			type : "GET",
-			url : "../project_servlet/showPjt.do",
+			type:"GET",
+			url:"../project_servlet/showPjt.do",
 			data : {
 				userid : "<%=session.getAttribute("userid")%>"
-				},
+			},
+// 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(res){
 				console.log("pjtInfo = " + res);
 				var pnum = "";
@@ -98,17 +103,17 @@
 					
 	                pnum = $(this).find('pnum').text();
 	                pname = $(this).find('pname').text();
-	                console.log(pnum);
 	                
 	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp?pnum="
 	                		+ pnum +"'>" +pname+"</a></li>");
 	                });
-				} , 
-				error : function(){
-					alert('프로젝트 로드에 실패했습니다.'); 
-	            }
-			});
-	});
+                 
+           } , 
+           error : function(){ 
+                        alert('프로젝트 로드에 실패했습니다'); 
+                   }
+           });
+	}
 	
 	
 </script>
