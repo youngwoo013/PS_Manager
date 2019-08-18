@@ -1,4 +1,4 @@
-x<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@ x<%@ page language="java" contentType="text/html; charset=UTF-8"
 <title>Sign in - PSM</title>
 </head>
 <body>
-	<!-- nav -->
+	<!-- nav132-->
 	<jsp:include page="/include/nav.jsp" />
 
 	<div class="container">

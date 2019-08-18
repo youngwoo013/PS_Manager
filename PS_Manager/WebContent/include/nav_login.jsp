@@ -32,7 +32,8 @@
 
 		<div class="nav navbar-nav navbar-right">
 
-			<span class="navbar-text">${sessionScope.userid } 님 환영합니다</span> <a
+			<a class="navbar-text" href="/psManager/account/account_view.jsp"> ${sessionScope.userid } 님 환영합니다 </a>  <!-- 로그인 후 자기아이디 클릭하면 내정보로 넘어감 -->
+			<a
 				class="navbar-text" href="/psManager/account_servlet/signout.do">로그아웃</a>
 
 		</div>

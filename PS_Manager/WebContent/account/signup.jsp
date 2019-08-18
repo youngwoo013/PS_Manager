@@ -50,7 +50,7 @@
 						<input type="text" class="form-control"
 							placeholder="생년월일(960101)" name="birth" maxlength="20">
 					</div>
-
+				
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary form-control"
 							value="확인">

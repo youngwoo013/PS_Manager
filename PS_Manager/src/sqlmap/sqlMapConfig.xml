@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />
 			<dataSource type="JNDI">
 				<property name="data_source" 
-				value="java:comp/env/oraDB" />
+				value="java:comp/env/psmDB" />
 			</dataSource>
 		</environment>
 	</environments>
@@ -22,5 +22,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="memo/mapper/memo.xml" />
 		<mapper resource="survey/mapper/survey.xml"/>
+		<mapper resource="account/mapper/account.xml"/>
 	</mappers>
 </configuration>

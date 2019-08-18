@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/include/header.jsp" />
+<jsp:include page="../include/header.jsp" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../Resources/css/chatbox.css">
@@ -23,7 +23,7 @@ textarea {
 		var chatContent = $('#chatContent').val();
 		$.ajax({
 			type: "POST",
-			url: "../chat_servlet/submit.do",
+			url: "/psManager/chat_servlet/submit.do",
 			data : {
 				chatName : chatName,
 				chatContent : chatContent
@@ -49,7 +49,7 @@ textarea {
 									 //숫자가 오면 lastID이므로 lastID보다 큰 chatID의 채팅을 1초마다 갱신 
 		$.ajax({
 			type: "POST",
-			url: "../chat_servlet/show.do",
+			url: "/psManager/chat_servlet/show.do",
 			data : {
 				listType: type
 			},

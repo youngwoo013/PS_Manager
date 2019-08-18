@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import account.AccountDAO;
 import account.AccountDTO;
+
 
 @WebServlet("/account_servlet/*")
 public class AccountController extends HttpServlet {
@@ -65,7 +65,27 @@ public class AccountController extends HttpServlet {
 			new AccountDAO().insertAccount(dto);
 			String message = "회원가입에 성공하였습니다. 다시 로그인해주세요.";
 			response.sendRedirect("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
-		}
+		} 
+		else if (url.contains("update.do")) { //업데이트용 입니다.
+			AccountDTO dto = new AccountDTO();
+			String userid = request.getParameter("userid");
+			String passwd = request.getParameter("passwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			String phonenum = request.getParameter("phonenum");
+			int birth = Integer.parseInt(request.getParameter("birth"));
+			String photo = request.getParameter("photo");
+			dto.setUserid(userid);
+			dto.setPasswd(passwd);
+			dto.setName(name);
+			dto.setEmail(email);
+			dto.setPhonenum(phonenum);
+			dto.setBirth(birth);
+			dto.setPhoto(photo);
+			new AccountDAO().updateAccount(dto);
+			String message = "수정에 성공하였습니다. 다시 로그인해주세요."; //재로그인 시켜버림
+			response.sendRedirect("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
+		} 
 
 	}
 
