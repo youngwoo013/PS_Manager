@@ -64,7 +64,7 @@ public class AccountController extends HttpServlet {
 			dto.setBirth(Integer.parseInt(birth));
 			new AccountDAO().insertAccount(dto);
 			String message = "회원가입에 성공하였습니다. 다시 로그인해주세요.";
-			response.getWriter().write("/psManager/index.jsp?message=" + URLEncoder.encode(message, "utf-8"));
+			response.getWriter().write("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
 		} else if (url.contains("validateID.do")) {
 			String userid = request.getParameter("userid");
 			boolean exist = new AccountDAO().validateID(userid);
