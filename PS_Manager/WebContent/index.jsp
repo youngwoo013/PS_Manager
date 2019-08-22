@@ -5,21 +5,20 @@
 <head>
 <!-- header -->
 <jsp:include page="/include/header.jsp" />
-
+<jsp:include page="/include/session_check.jsp" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="psManager/Resources/js/bootstrap.min.js"></script>
 <title>Welcome - PSM</title>
+<jsp:include page="/include/nav_login.jsp" />
 </head>
+<link rel="stylesheet" href="/psManager/Resources/css/main.css">
 <body>
 	<!-- nav -->
-	<jsp:include page="/include/nav.jsp" />
-
 	<div class="container">
-		Welcome
+		<div class="row">
+			
+		</div>
 	</div>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<script src="../Resources/js/bootstrap.min.js"></script>
-
 </body>
 </html>
