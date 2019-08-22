@@ -22,6 +22,5 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="memo/mapper/memo.xml" />
 		<mapper resource="survey/mapper/survey.xml"/>
-		<mapper resource="account/mapper/account.xml"/>
 	</mappers>
 </configuration>
