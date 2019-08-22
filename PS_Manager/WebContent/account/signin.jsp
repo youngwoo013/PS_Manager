@@ -10,7 +10,7 @@
 </head>
 <link rel="stylesheet" href="/psManager/Resources/css/main.css">
 <body>
-	<!-- nav -->
+	<!-- nav132-->
 	<jsp:include page="/include/nav.jsp" />
 
 	<div class="container">

@@ -24,7 +24,7 @@ textarea {
 		var chatContent = $('#chatContent').val();
 		$.ajax({
 			type : "POST",
-			url : "../chat_servlet/submit.do",
+			url : "/psManager/chat_servlet/submit.do",
 			data : {
 				chatName : chatName,
 				chatContent : chatContent
@@ -52,7 +52,7 @@ textarea {
 		//숫자가 오면 lastID이므로 lastID보다 큰 chatID의 채팅을 1초마다 갱신 
 		$.ajax({
 			type : "POST",
-			url : "../chat_servlet/show.do",
+			url : "/psManager/chat_servlet/show.do",
 			data : {
 				listType : type
 			},

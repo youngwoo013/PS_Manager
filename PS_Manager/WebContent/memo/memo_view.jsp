@@ -22,7 +22,7 @@ $(function(){
 			return;
 			
 		}
-		document.form1.action="/memo_servlet/update.do";
+		document.form1.action="../memo_servlet/update.do";
 		document.form1.submit();
 	});
 });
@@ -30,7 +30,7 @@ $(function(){
 $(function(){
 	$("#btnDelete").click(function(){
 		if(confirm("삭제하겠습니까? 되돌릴수없습니다.")){
-			document.form1.action="/memo_servlet/delete.do";	
+			document.form1.action="../memo_servlet/delete.do";	
 			document.form1.submit();	
 		}
 	});
