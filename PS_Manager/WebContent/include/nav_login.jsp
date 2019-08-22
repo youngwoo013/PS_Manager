@@ -24,7 +24,7 @@
 
 		<ul class="nav navbar-nav">
 			<li><a href="/psManager/memo/memo.jsp">한줄 메모장</a></li>
-			<li><a href="bbs.jsp">프로젝트</a></li>
+			<li><a href="/psManager/pjt_schedule/pjt_schedule.jsp">프로젝트</a></li>
 			<li><a href="/psManager/chatting/chatroom.jsp">채팅</a>
 			<li><a href="/psManager/agora.jsp">정보광장</a>
 		</ul>
