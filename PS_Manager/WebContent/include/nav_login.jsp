@@ -24,9 +24,9 @@
 
 		<ul class="nav navbar-nav">
 
-			<li><a href="main.jsp">메인</a></li>
-			<li><a href="bbs.jsp">한줄 메모장</a></li>
-			<li><a href="/psManager/pjt_schedule/pjt_schedule.jsp">프로젝트</a></li>
+			<li><a href="/psManager/index.jsp">메인</a></li>
+			<li><a href="/psManager/memo/memo.jsp">한줄 메모장</a></li>
+			<li><a href="/psManager/schedule/my_schedule.jsp">일정 관리</a></li>
 			<li><a href="/psManager/chatting/chatroom.jsp">채팅</a>
 		</ul>
 

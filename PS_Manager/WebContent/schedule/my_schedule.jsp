@@ -126,7 +126,6 @@
 			data : {
 				userid : "<%=session.getAttribute("userid")%>"
 			},
-// 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(res){
 				console.log("pjtInfo = " + res);
 				var pnum = "";

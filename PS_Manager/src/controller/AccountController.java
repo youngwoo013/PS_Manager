@@ -22,7 +22,7 @@ public class AccountController extends HttpServlet {
 		String url = request.getRequestURL().toString();
 		request.setCharacterEncoding("utf-8");
 		System.out.println("url = " + url);
-		if (url.contains("signin.do")) { // 로그인 시도
+		if (url.contains("signin.do")) { // 濡쒓렇�씤 �떆�룄
 			String userid = request.getParameter("userid");
 			String passwd = request.getParameter("passwd");
 			System.out.println(userid + " " + passwd);
@@ -37,7 +37,7 @@ public class AccountController extends HttpServlet {
 
 			} else {
 				message = name + "님 환영합니다.";
-				page = "/psManager/my_schedule/my_schedule.jsp";
+				page = "/psManager/index.jsp";
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", userid);
 				session.setAttribute("message", message);
