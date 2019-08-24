@@ -55,7 +55,7 @@ public class AccountDAO {
 			pstmt.setString(5, dto.getEmail());
 			pstmt.setInt(6, dto.getBirth());
 			int r = pstmt.executeUpdate();
-			System.out.println("account 생성된 row의 개수 : " + r);
+			System.out.println("account �깮�꽦�맂 row�쓽 媛쒖닔 : " + r);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -156,10 +156,9 @@ public class AccountDAO {
 			pstmt.setString(1, Userprofile);
 			pstmt.setString(2, Userid);
 			
-			System.out.println(Userid+Userprofile+"업데이트완료");
+			System.out.println(Userid+Userprofile+"업데이트 완료");
 			pstmt.executeUpdate();
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
 			try {
@@ -168,7 +167,6 @@ public class AccountDAO {
 				if (pstmt != null)
 					pstmt.close();
 			} catch (Exception e2) {
-				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}

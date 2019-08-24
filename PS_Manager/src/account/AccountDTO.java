@@ -8,10 +8,11 @@ public class AccountDTO {
 	private String email;
 	private int birth;
 	private String photo;
+	
 	public AccountDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public AccountDTO(String userid, String passwd, String name, String phonenum, String email, int birth, String photo) {
 		super();
 		this.userid = userid;
@@ -22,6 +23,7 @@ public class AccountDTO {
 		this.birth = birth;
 		this.photo = photo;
 	}
+	
 	public String getUserid() {
 		return userid;
 	}
@@ -64,6 +66,7 @@ public class AccountDTO {
 	public void setBirth(int birth) {
 		this.birth = birth;
 	}
+	
 	@Override
 	public String toString() {
 		return "AccountDTO [userid=" + userid + ", passwd=" + passwd + ", name=" + name + ", phonenum=" + phonenum

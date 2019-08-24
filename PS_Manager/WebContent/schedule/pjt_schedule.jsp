@@ -104,7 +104,7 @@
 	                pnum = $(this).find('pnum').text();
 	                pname = $(this).find('pname').text();
 	                
-	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/pjt_schedule/pjt_schedule.jsp?pnum="
+	                $('#pjt_list').append("<li class='list-group-item'><a href='/psManager/schedule/pjt_schedule.jsp?pnum="
 	                		+ pnum +"'>" +pname+"</a></li>");
 	                });
                  

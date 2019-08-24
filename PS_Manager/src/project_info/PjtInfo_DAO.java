@@ -23,7 +23,7 @@ public class PjtInfo_DAO {
 			pstmt.setString(3, dto.getPdescription());
 
 			res = pstmt.executeUpdate();
-			System.out.println("pjt_info 생성된 row의 개수 : " + res);
+			System.out.println("pjt_info 정보 : " + res);
 
 			// pjt_info의 pnum값 가져와서 coworker에 삽입
 			sql = "insert into coworker values(?,(select pnum from pjt_info where pname =? and pmanager = ?))";
@@ -32,7 +32,7 @@ public class PjtInfo_DAO {
 			pstmt.setString(2, dto.getPname());
 			pstmt.setString(3, dto.getPmanager());
 			res = pstmt.executeUpdate();
-			System.out.println("coworker 생성된 row의 개수 : " + res);
+			System.out.println("coworker �깮�꽦�맂 row�쓽 媛쒖닔 : " + res);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,6 +21,8 @@ public class AccountController extends HttpServlet {
 			throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		request.setCharacterEncoding("utf-8");
+		
+		System.out.println("url = " + url);
 		if (url.contains("signin.do")) { // 로그인 시도
 			String userid = request.getParameter("userid");
 			String passwd = request.getParameter("passwd");
