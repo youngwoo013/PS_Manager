@@ -16,6 +16,15 @@ public class MemoDAO {
 	}
 	public void updateMemo(MemoDTO dto) {
 		SqlSession session=MybatisManager.getInstance().openSession();
+		String writer=dto.getWriter();
+		String memo=dto.getMemo();
+		System.out.println("DAO="+memo);
+		writer=writer.replace("  ", "&nbsp;&nbsp;");
+		memo=memo.replace("  ", "&nbsp;&nbsp;");
+		writer=writer.replace("<", "&lt;");
+		writer=writer.replace(">", "&gt;");
+		memo=memo.replace("<", "&lt;");
+		memo=memo.replace(">", "&gt;");
 		session.update("memo.update", dto);
 		session.commit();
 		session.close();
@@ -40,11 +49,8 @@ public class MemoDAO {
 		SqlSession session=MybatisManager.getInstance().openSession();
 		String writer=dto.getWriter();
 		String memo=dto.getMemo();
-		
 		writer=writer.replace("  ", "&nbsp;&nbsp;");
 		memo=memo.replace("  ", "&nbsp;&nbsp;");
-		
-		
 		writer=writer.replace("<", "&lt;");
 		writer=writer.replace(">", "&gt;");
 		memo=memo.replace("<", "&lt;");

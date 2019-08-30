@@ -14,7 +14,13 @@ import memo.dao.MemoDAO;
 import memo.dto.MemoDTO;
 
 @WebServlet("/memo_servlet/*")
+
+
+
+
+
 public class MemoController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
    	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,20 +51,22 @@ public class MemoController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else if(url.indexOf("update.do")!=-1) {
+			request.setCharacterEncoding("utf-8");
 			int idx=Integer.parseInt(request.getParameter("idx"));
 			String writer=request.getParameter("writer");
 			String memo=request.getParameter("memo");
+			System.out.println("controller="+memo);
 			MemoDTO dto=new MemoDTO();
 			dto.setIdx(idx);
 			dto.setWriter(writer);
 			dto.setMemo(memo);
 			dao.updateMemo(dto);
-			response.sendRedirect("/memo/memo.jsp");
+			response.sendRedirect("/psManager/memo/memo.jsp");
 		}
 		else if(url.indexOf("delete.do")!=-1) {
 			int idx=Integer.parseInt(request.getParameter("idx"));
 			dao.deleteMemo(idx);
-			response.sendRedirect("/memo/memo.jsp");
+			response.sendRedirect("/psManager/memo/memo.jsp");
 		}
 	}
 

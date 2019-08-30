@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.DriverManager" %>
@@ -21,13 +22,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-
 <%
 	String cur = new SimpleDateFormat("yyyy").format(new Date());
 %>
 <script>
-	var check = { "ID" : false, "PWD" : false, "EMAIL" : false, "BIRTH" : true};
+	var check = {"PWD" : true, "EMAIL" : true, "BIRTH" : true};
 	var test = 1;
 	function regex(regex ,value, type){
 		var successAlert = $('#success'+type).alert();
@@ -46,6 +45,14 @@
 		
 	}
 	function submitFunction() {
+		if(check['PWD'] == false){
+			alert('비밀번호를 확인해 주세요.');
+			return;
+		}
+		if(check['EMAIL'] == false){
+			alert('이메일을 확인해 주세요.');
+			return;
+		}
 
 		var year = Number($('#year').val());
 		var month = $('#month').val();		//month는 select 이므로 이미 완성
@@ -68,6 +75,7 @@
 		var phonenum = $('#phonenum').val();
 		var email = $('#email').val();
 		var birth = ""+year+month+day;
+		var photo= $('#photo').val();
 		$.ajax({
 			type : "POST",
 			url : "../account_servlet/update.do",
@@ -76,14 +84,49 @@
 				passwd : passwd,
 				name : name,
 				phonenum : phonenum,
-				birth : birth
+				email : email,
+				birth : birth,
+				photo : photo
 			},
 			success : function(result) {
 				if(result!=null) window.location.href = result;
 			}
 		});
 	}
-
+	function validateID() {
+		var userid = $('#userid').val();
+		var regexID = /^[A-Za-z0-9]{6,15}/;
+		var successAlert = $('#successID').alert();	//통과시 성공 문구
+		var dangerAlert = $('#dangerID').alert();	//중복체크 검사 실패 문구
+		var dangerAlert2 = $('#dangerID2').alert();	//정규표현식 검사 실패 문구
+		if(regexID.test(userid) == false){
+			successAlert.hide();
+			dangerAlert.hide();
+			dangerAlert2.show();
+			check['ID'] = false;
+			return;
+		} 
+		$.ajax({
+			type : "POST",
+			url : "../account_servlet/validateID.do",
+			data : {
+				userid : userid
+			},
+			success : function(result){
+				if (result == 1){
+					dangerAlert.hide();
+					dangerAlert2.hide();
+					successAlert.show();
+					check['ID'] = true;
+				}else if (result == 0){
+					dangerAlert2.hide();
+					successAlert.hide();
+					dangerAlert.show();
+					check['ID'] = false;
+				}
+			}
+		});
+	}
 </script>
 <title>Insert title here</title>
 
@@ -130,13 +173,12 @@ textarea {
 %>
 <div class="container">
 		<div class="col-lg-2"></div>
-
 		<div class="col-lg-8">
 
 			<!-- 점보트론 -->
 			<div class="jumbotron" style="padding-top: 20px;">
 
-				<h2 style="text-align: center; margin-bottom: 30px">마이페이지</h2>
+				<h2 style="text-align: center; margin-bottom: 30px">프로필 수정</h2>
 				<div class="form-group">
 					<h4>&nbsp아이디</h4>
 					<div class="row">
@@ -152,7 +194,7 @@ textarea {
 						<div class="col-xs-5">
 							<input type="password" class="form-control" 
 								placeholder="특문.숫자.영문포함 8~15자" id="passwd" maxlength="15"
-								value=<%=passwd%> readonly="readonly"
+								value=<%=passwd%>
 								onkeyup="regex(/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/, this.value, 'PWD');">
 						</div>
 						<div class="col-xs-7">
@@ -171,7 +213,7 @@ textarea {
 					<h4>&nbsp이름</h4>
 					<div class="row">
 						<div class="col-xs-5">
-							<input type="text" class="form-control" placeholder="홍길동" value=<%=name %> readonly="readonly"
+							<input type="text" class="form-control" placeholder="홍길동" value=<%=name %>
 								id="name" maxlength="20">
 						</div>
 					</div>
@@ -181,7 +223,7 @@ textarea {
 					<div class="row">
 						<div class="col-xs-7">
 							<input type="text" class="form-control" placeholder="01000000000"
-								id="phonenum" maxlength="11" value=<%=phonenum %> readonly="readonly"
+								id="phonenum" maxlength="11" value=<%=phonenum %>
 								onkeyup="this.value=this.value.replace(/[^0-9]*/g,'');">
 						</div>
 					</div>
@@ -191,7 +233,7 @@ textarea {
 					<div class="row">
 						<div class="col-xs-7">
 							<input type="email" class="form-control"
-								placeholder="example@example.com" id="email" maxlength="20" value=<%=email %> readonly="readonly"
+								placeholder="example@example.com" id="email" maxlength="20" value=<%=email %>
 								onkeyup="regex(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i, this.value, 'EMAIL');">
 						</div>
 						<div class="col-xs-5">
@@ -212,16 +254,33 @@ textarea {
 					<div class="row">
 						<div class="col-xs-3">
 							<input type="text" class="form-control" placeholder="년도(4자)"
-								id="year" maxlength="4" value=<%=birth/10000%> readonly="readonly"
+								id="year" maxlength="4" value=<%=birth/10000 %>
 								onkeyup="this.value=this.value.replace(/[^0-9]*/g,'');">
 						</div>
 						<div class="row">
+							<%int month= birth%10000/100;
+								pageContext.setAttribute("month", month);
+							%>
+							<c:set var="birthmonth" value="${month}" />
 							<div class="col-xs-3">
-								<input type="text" class="form-control" placeholder="월(2자)"
-								id="month" maxlength="4" value=<%=birth%10000/100%> readonly="readonly">
+								<select id="month" class="form-control"> 
+									<option value="NAN">월</option>
+									<option value="01" <c:if test="${birthmonth==1}">selected</c:if>>1</option>
+									<option value="02" <c:if test="${birthmonth==2}">selected</c:if>>2</option>
+									<option value="03" <c:if test="${birthmonth==3}">selected</c:if>>3</option>
+									<option value="04" <c:if test="${birthmonth==4}">selected</c:if>>4</option>
+									<option value="05" <c:if test="${birthmonth==5}">selected</c:if>>5</option>
+									<option value="06" <c:if test="${birthmonth==6}">selected</c:if>>6</option>
+									<option value="07" <c:if test="${birthmonth==7}">selected</c:if>>7</option>
+									<option value="08" <c:if test="${birthmonth==8}">selected</c:if>>8</option>
+									<option value="09" <c:if test="${birthmonth==9}">selected</c:if>>9</option>
+									<option value="10" <c:if test="${birthmonth==10}">selected</c:if>>10</option>
+									<option value="11" <c:if test="${birthmonth==11}">selected</c:if>>11</option>
+									<option value="12" <c:if test="${birthmonth==12}">selected</c:if>>12</option>
+								</select>
 							</div>
 							<div class="col-xs-3">
-								<input type="text" class="form-control" placeholder="일" id="day" value=<%=birth%100 %> readonly="readonly"
+								<input type="text" class="form-control" placeholder="일" id="day" value=<%=birth%100 %>
 									maxlength="2"
 									onkeyup="this.value=this.value.replace(/[^0-9]*/g,'');">
 								<!-- 숫자만 입력 가능 -->
@@ -229,48 +288,29 @@ textarea {
 						</div>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<h4>&nbsp프로필사진</h4>
 					<div class="row">
 						<div class="col-xs-7">
-							<%if(photo!=null) {%>
-								<input type="text" class="form-control" placeholder="01000000000"
+							<input type="text" class="form-control" placeholder="01000000000"
 								id="photo" maxlength="11" value=<%=photo %> readonly="readonly">
 								<img src="${pageContext.request.contextPath}/img/<%=photo%>"/>
-							
-							<%} 
-							else{
-							%>
-							<input type="text" class="form-control" placeholder="01000000000"
-								id="photo" maxlength="11" value="프로필 사진을 등록해 주세요" readonly="readonly">
-								<img src="${pageContext.request.contextPath}/img/default.png" width="300" height="200" />
 								
-							<%} %>	
 						</div>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<button type='button' class="btn btn-primary form-control"
-						onclick="location.href='/psManager/Upload/uploadForm.jsp';">프로필사진 관리 </button>
-				
-				</div>
-				<div class="form-group">
-					<button type='button' class="btn btn-primary form-control"
-						onclick="location.href='/psManager/account/account_update.jsp';" style="margin-top: 20px">수정하기</button>
-				</div>
-				<div class="form-group">
-					<button type='button' class="btn btn-primary form-control"
-						onclick="location.href='/psManager/index.jsp';" style="margin-top: 20px">확인</button>
+						onclick="submitFunction();" style="margin-top: 20px">확인</button>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-lg-2"></div>
 	</div>
-<form action="/psManager/account_servlet/update.do" method="post">
-	
-</form>
+
 
 
 </body>

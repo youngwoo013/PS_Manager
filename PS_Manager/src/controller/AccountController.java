@@ -50,11 +50,17 @@ public class AccountController extends HttpServlet {
 		} else if (url.contains("signup.do")) {
 			AccountDTO dto = new AccountDTO();
 			String userid = request.getParameter("userid");
+			System.out.println(userid);
 			String passwd = request.getParameter("passwd");
+			System.out.println(passwd);
 			String name = request.getParameter("name");
+			System.out.println(name);
 			String email = request.getParameter("email");
+			System.out.println(email);
 			String phonenum = request.getParameter("phonenum");
+			System.out.println(phonenum);
 			String birth = request.getParameter("birth");
+			System.out.println(birth);
 			
 			dto.setUserid(userid);
 			dto.setPasswd(passwd);
@@ -92,7 +98,7 @@ public class AccountController extends HttpServlet {
 			dto.setPhoto(photo);
 			new AccountDAO().updateAccount(dto);
 			String message = "수정에 성공하였습니다. 다시 로그인해주세요."; //재로그인 시켜버림
-			response.sendRedirect("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
+			response.getWriter().write("/psManager/account/signin.jsp?message=" + URLEncoder.encode(message, "utf-8"));
 		} 
 
 	}

@@ -78,7 +78,8 @@
 				passwd : passwd,
 				name : name,
 				phonenum : phonenum,
-				birth : birth
+				birth : birth,
+				email : email
 			},
 			success : function(result) {
 				if(result!=null) window.location.href = result;
