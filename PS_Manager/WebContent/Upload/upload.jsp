@@ -15,7 +15,6 @@ request.setCharacterEncoding("euc-kr");
 String realFolder = "";
 String filename1 = "";
 int maxSize = 1024*1024*5;
-int i;
 String encType = "euc-kr";
 String savefile = "img"; //저장될 폴더명 내컴은 C:\Users\37-909\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\psManager\img
 						 //tomcat 서버 설정에 기본 경로 나와있음, img 폴더가 미리 있어야함.  
@@ -28,10 +27,7 @@ MultipartRequest multi=new MultipartRequest(request, realFolder, maxSize, encTyp
 
 Enumeration<?> files = multi.getFileNames();
 String file1 = (String)files.nextElement();
-filename1 = multi.getFilesystemName(file1);
-     
-
-
+filename1 = multi.getFilesystemName(file1);     
 String fullpath = realFolder + "\\" + filename1;
 
 %>
@@ -40,15 +36,21 @@ String fullpath = realFolder + "\\" + filename1;
 </head>
 <body>
 	
-	<img src="${pageContext.request.contextPath}/img/<%=filename1%>" width=512 height=384 alt="이미지를등록하세요" ></img>
+	
 	
 	
 	<%System.out.println(fullpath);
+	System.out.println(filename1);
 	AccountDAO dao= new AccountDAO();			//아이디에 따라 photo DB연결해줌
 	dao.profile(userid, filename1);
 	System.out.println(userid+filename1);
 	%>
-	<button type="button" onclick="location.href='/psManager/account/account_view.jsp' ">완료</button>
+	<script>
+	alert('요청 처리 완료');
+	location.href="/psManager/account/account_view.jsp";
+	
+	</script>
+	
 		
 	
 </body>

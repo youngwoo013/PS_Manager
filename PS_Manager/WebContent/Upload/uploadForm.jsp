@@ -35,6 +35,12 @@ pageEncoding="EUC-KR"%>
 textarea {
 	resize: none;
 }
+#preview{
+	width:1000px;
+	margin:0 auto;
+	border:1px solid #000;
+}
+img {display:block; margin: 0px auto;}
 </style>
 </head>
 <body>
@@ -60,12 +66,12 @@ textarea {
 	<%if(photo!=null){
 		%>
 		현재 프로필사진 : <input type="text" name="photo" size="20" value=<%=photo%> readonly="readonly"/><br>
-		<img src="${pageContext.request.contextPath}/img/<%=photo%>"/>
+		<img src="${pageContext.request.contextPath}/img/<%=photo%>" width="300" height="200" border="10"/>
 		<%
 	} 
 	else{%>
 		현재 프로필사진 : <input type="text" name="photo" size="20" value="프로필 사진을 등록하세요" readonly="readonly"/><br>
-		<img src="${pageContext.request.contextPath}/img/default.png"  width="300" height="200">
+		<img src="${pageContext.request.contextPath}/img/default.png"  width="300" height="200" border="10">
 		<%}%> 
 	<!-- <input type="file" name="filename1" /><br><br> -->
 				
@@ -75,10 +81,7 @@ textarea {
 
 <div id="preview"></div>
 
-
-
-
-<input type="file" name="filename1" class="inp-img" accept=".gif, .jpg, .png"> <button class="btn-delete">삭제</button>
+<input type="file" name="filename1" class="inp-img" accept=".gif, .jpg, .png" width="300" height="200"> <button class="btn-delete">삭제</button>
 
 <script src="lib/jquery/2.2.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -88,7 +91,7 @@ function readInputFile(input) {
     if(input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#preview').html("<img src="+ e.target.result +">");
+            $('#preview').html("<img src="+ e.target.result +" >");
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -119,7 +122,7 @@ $(".btn-delete").click(function(event) {
 
 
 </script>
-	<br><input type="submit" value="업로드"><br><br>
+	<input type="submit" value="업로드"><br><br>
 	<button type="button" onclick="location.href='/psManager/account/account_view.jsp' ">취소</button>
 	<!-- 이미지 파일만 등록되게 accept 확장지 지정 -->
 

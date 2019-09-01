@@ -98,6 +98,9 @@
 textarea {
 	resize: none;
 }
+		
+img { display: block; margin: 0px auto; }
+	
 </style>
 
 </head>
@@ -235,14 +238,15 @@ textarea {
 						<div class="col-xs-7">
 							<%if(photo!=null) {%>
 								<input type="text" class="form-control" placeholder="01000000000"
-								id="photo" maxlength="11" value=<%=photo %> readonly="readonly">
-								<img src="${pageContext.request.contextPath}/img/<%=photo%>"/>
+								id="photo" maxlength="11" value=<%=photo %> readonly="readonly"> <br>
+								<img src="${pageContext.request.contextPath}/img/<%=photo%>" width="300" height="200"/>
+								
 							
 							<%} 
 							else{
 							%>
 							<input type="text" class="form-control" placeholder="01000000000"
-								id="photo" maxlength="11" value="프로필 사진을 등록해 주세요" readonly="readonly">
+								id="photo" maxlength="11" value="프로필 사진을 등록해 주세요" readonly="readonly"> <br>
 								<img src="${pageContext.request.contextPath}/img/default.png" width="300" height="200" />
 								
 							<%} %>	
