@@ -68,7 +68,19 @@ public class ScheduleController extends HttpServlet {
 			my_scheduleDAO dao = new my_scheduleDAO();
 			PrintWriter out = response.getWriter();
 			String userid = request.getParameter("userid");
-			String schedule_res = dao.showMychedule(userid);
+			String schedule_res = dao.showMyschedule(userid);
+			
+			out.print(schedule_res);
+			
+		} else if(url.contains("show_Pjtschedule.do")) {
+			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			
+			pjt_scheduleDAO dao = new pjt_scheduleDAO();
+			PrintWriter out = response.getWriter();
+			String pnum = request.getParameter("pnum");
+			String schedule_res = dao.showPjtschedule(pnum);
 			
 			out.print(schedule_res);
 			

@@ -23,7 +23,7 @@ public class my_scheduleDAO {
 			pstmt.setString(4, dto.getDescription());
 
 			res = pstmt.executeUpdate();
-			System.out.println("my_schedule 생성된 row의 개수 : " + res);
+			System.out.println("my_schedule에 삽입된 행 개수 : " + res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -32,7 +32,7 @@ public class my_scheduleDAO {
 		return res;
 	}
 
-	public String showMychedule(String userid) {
+	public String showMyschedule(String userid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

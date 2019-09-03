@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import coworker.coworkerDAO;
 import project_info.PjtInfo_DAO;
 import project_info.PjtInfo_DTO;
 
@@ -22,7 +23,7 @@ public class ProjectController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		System.out.println("url = " + url);
 
-		if (url.contains("createPjt.do")) { // 프로젝트 추가
+		if (url.contains("createPjt.do")) { // 프로젝트 생성
 
 			PjtInfo_DTO dto = new PjtInfo_DTO();
 			String pname = request.getParameter("pname");
@@ -50,12 +51,23 @@ public class ProjectController extends HttpServlet {
 			response.setContentType("text/html; charset=UTF-8");
 			PjtInfo_DAO dao = new PjtInfo_DAO();
 			PrintWriter out = response.getWriter();
+			
 			String userid = request.getParameter("userid");
 			String pjt_res = dao.showPjt(userid);
 			
 			out.print(pjt_res);
 		} else if (url.contains("addCoworker.do")) {
+			int res = 0;
+			PrintWriter out = response.getWriter();
+
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			String coworkers = request.getParameter("coworker");
+			String pnum = request.getParameter("pnum");
+			coworkerDAO dao = new coworkerDAO();
+			res= dao.addCoworker(pnum, coworkers);
 			
+			out.print(res);
 		}
 
 	}
